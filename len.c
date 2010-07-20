@@ -4,7 +4,7 @@
 int main()
 {
   char * test = "hello";
-  printf("test is yay big: %d\n", strnlen(test, 50));
+  printf("test is yay big: %d\n", (int)strnlen(test, 50));
 
   return(0);
 }

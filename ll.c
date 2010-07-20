@@ -10,14 +10,28 @@ struct {
 
 str_list* add_str(char * string, str_list * list);
 void free_list(str_list * list);
+void print_usage();
 
-int main()
+void print_usage()
 {
+  printf("Please give a number of elements.\n");
+  return;
+}
+
+int main(int argc, char ** argv)
+{
+  if (argc < 2) {
+    print_usage();
+    return(1);
+  }
+  
+  const int COUNT = atoi(argv[1]);
+
   str_list *my_list = malloc(sizeof(str_list));
   my_list->data = NULL;
 
   str_list *my_list_end = my_list;
-  for (unsigned long i = 0; i < 100000; i++) {
+  for (unsigned long i = 0; i < COUNT; i++) {
     char tmp_strn[50];
     sprintf(tmp_strn, "hello%d", (int)i);
     my_list_end = add_str(tmp_strn, my_list_end);
@@ -27,7 +41,7 @@ int main()
     printf("test: %s\n", tmpl->data);
   }
 
-  printf("\nRunning through the list in reverse (doubly linked)\n\n");
+  printf("\nRunning through the (doubly linked) list in reverse\n\n");
 
   for (str_list *tmpl = my_list_end; tmpl != NULL; tmpl = (str_list*)tmpl->prev) { 
     printf("test: %s\n", tmpl->data);

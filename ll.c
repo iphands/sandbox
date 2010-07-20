@@ -18,8 +18,8 @@ int main()
 
   str_list *my_list_end = my_list;
   for (unsigned long i = 0; i < 100000; i++) {
-    char tmp_strn[6 + 10];
-    sprintf(tmp_strn, "hello%d", i);
+    char tmp_strn[50];
+    sprintf(tmp_strn, "hello%d", (int)i);
     my_list_end = add_str(tmp_strn, my_list_end);
   }
 

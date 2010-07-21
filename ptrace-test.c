@@ -53,14 +53,20 @@ int main(int argc, char ** argv)
   ptrace(PTRACE_GETREGS, pid, NULL, &regs);
   print_ur_struct(regs);
 
-  for (int i = 0; i < 1000; i++) {
-    data = ptrace(PTRACE_PEEKDATA, pid, i, NULL);
+  for (int i = 0; i < 10000; i++) {
+    data = ptrace(PTRACE_PEEKDATA, pid, regs.ebx + i, NULL);
     if ( (data == -1) || (data == 0) ) {
       continue;
     }
-    printf("int[%d]: %ld\n", i, data);
-    printf("hex[%d]: %x\n", i, (unsigned int) data);
+    //printf("int[%d]: %ld\n", i, data);
+    //printf("hex[%d]: %x\n", i, (unsigned int) data);
+    //printf("string[%d]: %c\n", i, (char) data);
+    printf("%c", (char) data);
+    if ((char) data == '\0') {
+      printf("\n[%d]", i);
+    }
   }
+  printf("\n");
 
   ptrace(PTRACE_DETACH, pid, NULL, NULL);
 
